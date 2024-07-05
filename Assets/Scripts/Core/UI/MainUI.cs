@@ -9,7 +9,7 @@ public class MainUI : MonoBehaviour
     [SerializeField] Button _missionsButton;
     [SerializeField] Button _settingsButton;
     [SerializeField] Button _shopButton;
-    [SerializeField] Button _onChoosePlane;
+    [SerializeField] Button _choosePlaneButton;
     [SerializeField] Button _backButton;
 
     [SerializeField] GameObject _mainScreen;
@@ -19,7 +19,6 @@ public class MainUI : MonoBehaviour
     [SerializeField] GameObject _choosePlaneScreen;
     [SerializeField] GameObject _shopScreen;
     [SerializeField] GameObject _popupScreen;
-    [SerializeField] Image _selectedWeaponImage;
 
     [SerializeField] AudioClip _applyButtonClip;
     [SerializeField] AudioClip _cancelButtonClip;
@@ -27,29 +26,29 @@ public class MainUI : MonoBehaviour
 
     [SerializeField] LoadingScreen _loadingScreen;
 
-    private List<GameObject> _activeScreens;
-    private int _screenIndex;
-
-    private ApplicationData _appData;
+    private List<GameObject> _screens;
+    private GameObject _currentActiveScreen;
 
     private void Start()
     {
-        _activeScreens = new List<GameObject> { _popupScreen, _mainScreen, _settingsScreen, _shopScreen, _slotMachineScreen, _missionsScreen, _choosePlaneScreen };
+        _screens = new List<GameObject> { _popupScreen, _settingsScreen, _shopScreen, _slotMachineScreen, _missionsScreen, _choosePlaneScreen };
 
-        foreach (var screen in _activeScreens)
+        foreach (var screen in _screens)
         {
             screen.SetActive(false);
         }
 
         _mainScreen.SetActive(true);
+        _backButton.gameObject.SetActive(false);
+        _currentActiveScreen = _mainScreen;
 
-        _planeGameButton.onClick.AddListener(() => { OnPlaneGame(); });
-        _slotMachineButton.onClick.AddListener(() => { OnSlotMachine(); });
-        _settingsButton.onClick.AddListener(() => { OnSettings(); });
-        _shopButton.onClick.AddListener(() => { OnShop(); });
-        _missionsButton.onClick.AddListener(() => { OnMissions(); });
-        _onChoosePlane.onClick.AddListener(() => { OnChoosePlane(); });
-        _backButton.onClick.AddListener(() => { CloseActiveWindow(); });
+        _planeGameButton.onClick.AddListener(OnPlaneGame);
+        _slotMachineButton.onClick.AddListener(OnSlotMachine);
+        _settingsButton.onClick.AddListener(OnSettings);
+        _shopButton.onClick.AddListener(OnShop);
+        _missionsButton.onClick.AddListener(OnMissions);
+        _choosePlaneButton.onClick.AddListener(OnChoosePlane);
+        _backButton.onClick.AddListener(CloseActiveWindow);
         _loadingScreen.OnLoad += _loadingScreen_OnLoad;
     }
 
@@ -61,35 +60,31 @@ public class MainUI : MonoBehaviour
     private void OnChoosePlane()
     {
         AudioManager.Instance.PlayOneShotSound(_applyButtonClip);
-        _backButton.gameObject.SetActive(true);
-        SwitchActive(_choosePlaneScreen);
+        ToggleWindow(_choosePlaneScreen);
     }
 
     private void OnMissions()
     {
         AudioManager.Instance.PlayOneShotSound(_applyButtonClip);
-        _backButton.gameObject.SetActive(true);
-        SwitchActive(_missionsScreen);
+        ToggleWindow(_missionsScreen);
     }
 
     private void OnShop()
     {
         AudioManager.Instance.PlayOneShotSound(_applyButtonClip);
-        _backButton.gameObject.SetActive(true);
-        SwitchActive(_shopScreen);
+        ToggleWindow(_shopScreen);
     }
 
     private void OnSlotMachine()
     {
         AudioManager.Instance.PlayOneShotSound(_applyButtonClip);
-        _backButton.gameObject.SetActive(true);
-        SwitchActive(_slotMachineScreen);
+        ToggleWindow(_slotMachineScreen);
     }
 
     public void OnSettings()
     {
         AudioManager.Instance.PlayOneShotSound(_applyButtonClip);
-        _settingsScreen.SetActive(!_settingsScreen.activeSelf);
+        ToggleWindow(_settingsScreen);
     }
 
     private void OnPlaneGame()
@@ -103,24 +98,35 @@ public class MainUI : MonoBehaviour
         AudioManager.Instance.PlayOneShotSound(_cancelButtonClip);
         _backButton.gameObject.SetActive(false);
 
-        if (_activeScreens[_screenIndex] != _mainScreen)
+        if (_currentActiveScreen != _mainScreen)
         {
-            _activeScreens[_screenIndex].SetActive(false);
+            _currentActiveScreen.SetActive(false);
             _mainScreen.SetActive(true);
-            _screenIndex = _activeScreens.IndexOf(_mainScreen);
+            _currentActiveScreen = _mainScreen;
         }
     }
 
-    private void SwitchActive(GameObject screen)
+    private void ToggleWindow(GameObject screen)
     {
-        if (screen != null)
+        bool isActive = screen.activeSelf;
+
+        foreach (var activeScreen in _screens)
         {
-            foreach (var activeScreen in _activeScreens)
-            {
-                activeScreen.SetActive(false);
-            }
-            screen.SetActive(true);
-            _screenIndex = _activeScreens.IndexOf(screen);
+            activeScreen.SetActive(false);
         }
+
+        if (!isActive)
+        {
+            screen.SetActive(true);
+            _currentActiveScreen = screen;
+        }
+        else
+        {
+            _mainScreen.SetActive(true);
+            _currentActiveScreen = _mainScreen;
+        }
+
+        if (screen != _settingsScreen)
+            _backButton.gameObject.SetActive(!isActive);
     }
 }

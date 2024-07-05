@@ -1,3 +1,4 @@
+using Codice.Client.Common.GameUI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,14 @@ public class SlotMachineSystem : MonoBehaviour
 {
     [SerializeField] int _slotCount;
     [SerializeField] int _spinPrice;
-    [SerializeField] int _reward;
+    [SerializeField] int _rewardCoin;
+    [SerializeField] int _rewardCrowbar;
 
     [SerializeField] AudioClip _spinClip;
 
     public bool IsSpinning { get; private set; } = false;
 
-    public delegate void SpinResultHandler(bool isWin, List<int> slotValues, int reward);
+    public delegate void SpinResultHandler(bool isWin, List<int> slotValues, int reward, Sprite sprite);
     public event SpinResultHandler OnSpinEnd;
 
     private float _spinDuration;
@@ -20,6 +22,12 @@ public class SlotMachineSystem : MonoBehaviour
     private List<Item> _slotItems;
 
     private ApplicationData _appData;
+    private SlotMachineUI _slotMachineUI;
+
+    private void Awake()
+    {
+        _slotMachineUI = FindObjectOfType<SlotMachineUI>();
+    }
 
     public void InitializeSlots(List<Item> items)
     {
@@ -44,12 +52,12 @@ public class SlotMachineSystem : MonoBehaviour
         {
             _appData.AddResourceCoin(-_spinPrice);
             IsSpinning = true;
-            _spinDuration = _spinClip.length;
+            _spinDuration = 3;
             StartCoroutine(SpinCoroutine());
         }
         else
         {
-            OnSpinEnd?.Invoke(false, null, 0);
+            OnSpinEnd?.Invoke(false, null, 0, null);
         }
     }
 
@@ -66,6 +74,8 @@ public class SlotMachineSystem : MonoBehaviour
                 int randomIndex = Random.Range(0, _slotItems.Count);
                 _currentSlotValues[i] = randomIndex;
             }
+
+            _slotMachineUI.UpdateSlotVisuals(_currentSlotValues);
 
             elapsedTime += interval;
             yield return new WaitForSeconds(interval);
@@ -87,13 +97,28 @@ public class SlotMachineSystem : MonoBehaviour
             }
         }
 
-        int reward = isWin ? _reward : 0;
+        int reward = 0;
+        Sprite rewardSprite = null;
+
         if (isWin)
         {
-            _appData.AddResourceCoin(_reward);
+            var winningItem = _slotItems[_currentSlotValues[0]];
+
+            if (winningItem.Name == "Crowbar")
+            {
+                reward = _rewardCrowbar;
+                _appData.AddResourceCrowbar(reward);
+                rewardSprite = winningItem.Sprite;
+            }
+            else
+            {
+                reward = _rewardCoin;
+                _appData.AddResourceCoin(reward);
+                rewardSprite = winningItem.Sprite;
+            }
         }
 
-        OnSpinEnd?.Invoke(isWin, _currentSlotValues, reward);
+        OnSpinEnd?.Invoke(isWin, _currentSlotValues, reward, rewardSprite);
         IsSpinning = false;
     }
 }

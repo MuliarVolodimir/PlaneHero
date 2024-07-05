@@ -21,6 +21,8 @@ public class ApplicationData
         }
     }
 
+    
+
     // Settings
     public bool IsMusicMute = false;
     public bool IsEffectsMute = false;
@@ -120,6 +122,19 @@ public class ApplicationData
         {
             _resources[RESOURCE_CROWBAR_ID].Count = PlayerPrefs.GetInt("Crowbars");
         }
+    }
+
+    public bool IsPlaneUnlocked(string name)
+    {
+        if (_unlockedPlanes.Contains(name))
+            return true;
+        else
+            return false;
+    }
+
+    public void SetPlane(string name)
+    {
+        _curSelectedPlane = name;
     }
 }
 
