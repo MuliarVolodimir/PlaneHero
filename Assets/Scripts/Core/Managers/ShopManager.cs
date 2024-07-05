@@ -59,7 +59,7 @@ public class ShopManager : MonoBehaviour
 
     private void BuyChests(int price)
     {
-        if (price >= _appData.GetCrowbars())
+        if (price <= _appData.GetCrowbars())
         {
             _appData.AddResourceCrowbar(-price);
         }
@@ -71,7 +71,7 @@ public class ShopManager : MonoBehaviour
 
     private void BuyCrowbars(int price, int reward)
     {
-        if (price >= _appData.GetCoins())
+        if (price <= _appData.GetCoins())
         {
             _appData.AddResourceCoin(-price);
             _appData.AddResourceCrowbar(reward);
