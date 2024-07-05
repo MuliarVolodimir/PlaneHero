@@ -83,7 +83,7 @@ public class PlaneSelectScreen : MonoBehaviour
         }
         else
         {
-            _popupScreen?.ShowMessage("NOT ENOUGH TICKETS!");
+            _popupScreen?.ShowMessage("NOT ENOUGH COINS!");
         }
 
         UpdateGraphics();
