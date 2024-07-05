@@ -15,6 +15,7 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField] GameObject _shopItemIconInfo;
     [SerializeField] PopupScreen _popupScreen;
+    [SerializeField] AudioClip _applyClip;
     
     private ApplicationData _appData;
 
@@ -41,6 +42,7 @@ public class ShopManager : MonoBehaviour
 
     private void OnItemInfoClick(int price, int reward, ShopItem.RewardType rewardType)
     {
+        AudioManager.Instance.PlayOneShotSound(_applyClip);
         switch (rewardType)
         {
             case ShopItem.RewardType.Coin:
