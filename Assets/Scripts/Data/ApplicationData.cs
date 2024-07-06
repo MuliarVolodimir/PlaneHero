@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ApplicationData
-{ 
+{
     private const int RESOURCE_COIN_ID = 0;
     private const int RESOURCE_CROWBAR_ID = 1;
 
@@ -21,8 +22,6 @@ public class ApplicationData
         }
     }
 
-    
-
     // Settings
     public bool IsMusicMute = false;
     public bool IsEffectsMute = false;
@@ -33,13 +32,33 @@ public class ApplicationData
     private string _curSelectedPlane = "StartPlane";
     private List<string> _unlockedPlanes = new List<string> { "StartPlane" };
 
-    private int _defeatedEnemies;
-    private int _defeatedBosses;
+    private int _defeatedEnemies = 200;
+    private int _defeatedBosses = 15;
     private int _gameLevel = 1;
     private int _expCount = 0;
+    private int _expToTheNextLvl = 100;
+    private List<string> _comletedMissions = new List<string>();
 
     public event Action<int, int> OnExpChanged;
     public event Action<int, int> OnResourcesChanged;
+
+    public void AddExp(int exp)
+    {
+        _expCount += exp;
+
+        if (_expCount >= _expToTheNextLvl)
+        {
+            var expTemp = Math.Abs(_expToTheNextLvl - _expCount);
+            _expCount = expTemp;
+            _gameLevel++;
+        }
+        OnExpChanged?.Invoke(_expCount, _gameLevel);
+    }
+
+    public (int, int) GetExp()
+    {
+        return (_expCount, _gameLevel);
+    }
 
     public void InitPlanes(List<Item> plane)
     {
@@ -54,7 +73,7 @@ public class ApplicationData
     public void UnlockPlane(string name)
     {
         _unlockedPlanes.Add(name);
-        _curSelectedPlane = name; 
+        _curSelectedPlane = name;
     }
 
     public string GetPlane()
@@ -95,21 +114,67 @@ public class ApplicationData
         return _resources.Count > RESOURCE_CROWBAR_ID ? _resources[RESOURCE_CROWBAR_ID].Count : 0;
     }
 
-    public void AddLevel(int expCount)
+    public bool IsPlaneUnlocked(string name)
     {
-        _expCount += expCount;
-        if (_expCount >= 100) // 100 - exp to next lvl
-        {
-            _gameLevel++;
-        }
+        return _unlockedPlanes.Contains(name);
+    }
 
-        OnExpChanged?.Invoke(_gameLevel, _expCount);
+    public void SetPlane(string name)
+    {
+        _curSelectedPlane = name;
+    }
+
+    public void AddEnemiesBosses(int enemies, int bosses)
+    {
+        _defeatedEnemies += enemies;
+        _defeatedBosses += bosses;
+    }
+
+    public int GetDefeatedEnemies()
+    {
+        return _defeatedEnemies;
+    }
+
+    public int GetDefeatedBosses()
+    {
+        return _defeatedBosses;
+    }
+
+    public void ResetProgress()
+    {
+        _defeatedBosses = 0;
+        _defeatedEnemies = 0;
+        foreach (var mission in _comletedMissions)
+        {
+            _comletedMissions.Remove(mission);
+        }
+        _comletedMissions.Clear();
+    }
+
+    public bool IsMissionCompleted(string missionName)
+    {
+        if (_comletedMissions.Contains(missionName))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void CompleteMission(string missionName)
+    {
+        if (!_comletedMissions.Contains(missionName))
+        {
+            _comletedMissions.Add(missionName);
+        }
     }
 
     public void SaveData()
     {
         PlayerPrefs.SetInt("Coins", _resources[RESOURCE_COIN_ID].Count);
-        PlayerPrefs.SetInt("Crowbar", _resources[RESOURCE_CROWBAR_ID].Count);
+        PlayerPrefs.SetInt("Crowbars", _resources[RESOURCE_CROWBAR_ID].Count);
 
         PlayerPrefs.Save();
     }
@@ -124,33 +189,6 @@ public class ApplicationData
         {
             _resources[RESOURCE_CROWBAR_ID].Count = PlayerPrefs.GetInt("Crowbars");
         }
-    }
-
-    public bool IsPlaneUnlocked(string name)
-    {
-        if (_unlockedPlanes.Contains(name))
-            return true;
-        else
-            return false;
-    }
-
-    public void SetPlane(string name)
-    {
-        _curSelectedPlane = name;
-    }
-
-    public void AddEnemiesBosses(int enemies, int bosses)
-    {
-        _defeatedEnemies += enemies;
-        _defeatedBosses += bosses;
-    }
-    public int GetDefeatedEnemies()
-    {
-        return _defeatedEnemies;
-    }
-    public int GetDefeatedBosses()
-    {
-        return _defeatedBosses;
     }
 }
 

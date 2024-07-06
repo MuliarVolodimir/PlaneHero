@@ -15,8 +15,10 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField] GameObject _shopItemIconInfo;
     [SerializeField] PopupScreen _popupScreen;
+    [SerializeField] GameObject _chestGameController;
+    [SerializeField] GameObject _chestSpawnPos;
     [SerializeField] AudioClip _applyClip;
-    
+
     private ApplicationData _appData;
 
     private void Start()
@@ -52,18 +54,20 @@ public class ShopManager : MonoBehaviour
                 BuyCrowbars(price, reward);
                 break;
             case ShopItem.RewardType.Chest:
-                BuyChests(price);
+                BuyChests(price, reward);
                 break;
             default:
                 break;
         }
     }
 
-    private void BuyChests(int price)
+    private void BuyChests(int price, int reward)
     {
         if (price <= _appData.GetCrowbars())
         {
             _appData.AddResourceCrowbar(-price);
+            GameObject chestController = Instantiate(_chestGameController, _chestSpawnPos.transform);
+            chestController.GetComponent<ChestGameController>().Initialize(reward);
         }
         else
         {

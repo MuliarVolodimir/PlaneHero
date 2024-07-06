@@ -10,6 +10,8 @@ public class PopupScreen : MonoBehaviour
     [SerializeField] TextMeshProUGUI _messageText;
     [SerializeField] AudioClip _aplayClip;
 
+    public event Action OnConfirm;
+
     private void Start()
     {
         _itemImage.gameObject.SetActive(false);
@@ -19,6 +21,7 @@ public class PopupScreen : MonoBehaviour
 
     private void Close()
     {
+        OnConfirm?.Invoke();
         AudioManager.Instance.PlayOneShotSound(_aplayClip);
         gameObject.SetActive(false);
         _itemImage.gameObject.SetActive(false);
@@ -27,12 +30,15 @@ public class PopupScreen : MonoBehaviour
     public void ShowMessage(string message)
     {
         gameObject.SetActive(true);
+        if (gameObject.activeSelf == false) gameObject.SetActive(true);
         _itemImage.gameObject.SetActive(false);
         _messageText.text = message;
     }
 
     public void ShowReward(Sprite sprite, string message)
     {
+        gameObject.SetActive(true);
+        if (gameObject.activeSelf == false) gameObject.SetActive(true);
         _itemImage.gameObject.SetActive(true);
         _itemImage.sprite = sprite;
         _messageText.text = message;

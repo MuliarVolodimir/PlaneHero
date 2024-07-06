@@ -8,23 +8,20 @@ public class MissionItemIconInfo : MonoBehaviour
 
     [SerializeField] Image _rewardImage;
     [SerializeField] TextMeshProUGUI _rewardText;
-
     [SerializeField] Image _missionBab;
-    [SerializeField] TextMeshProUGUI _missionProgressText;
 
-    public void SetInfo(Sprite rewardSprite, string missionState, int curProgress, int maxProgress)
+    public void SetInfo(MissionItem missionItem, int curProgress)
     {
-        _rewardImage.sprite = rewardSprite;
-        _missionText.text = missionState;
-        if (curProgress >= maxProgress)
+        _rewardImage.sprite = missionItem.RewardSprite;
+        _rewardText.text = $"x{missionItem.Reward}";
+        _missionText.text = missionItem.MissionCondition;
+        if (curProgress >= missionItem.MaxProgress)
         {
             _missionBab.fillAmount = 1f;
         }
         else
         {
-            _missionBab.fillAmount = (float)curProgress / maxProgress;
+            _missionBab.fillAmount = (float)curProgress / missionItem.MaxProgress;
         }    
-        _missionProgressText.text = $"{curProgress}/{maxProgress}";
     }
-
 }

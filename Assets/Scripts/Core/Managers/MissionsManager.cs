@@ -16,48 +16,53 @@ public class MissionsManager : MonoBehaviour
     private void Start()
     {
         _appData = ApplicationData.Instance;
-        InitializeItems(_coinMissions, MissionItem.RewardType.Coins);
-        InitializeItems(_crowbarMissions, MissionItem.RewardType.Crowbars);
+        InitializeItems(_coinMissions);
+        InitializeItems(_crowbarMissions);
     }
 
-    private void InitializeItems(List<MissionItem> items, MissionItem.RewardType rewardType)
+    private void InitializeItems(List<MissionItem> missionItems)
     {
-        foreach (var item in items)
+        foreach (var missionItem in missionItems)
         {
-            if (item.CurProgress >= item.MaxProgress) continue;
+            if (_appData.IsMissionCompleted(missionItem.MissionCondition) == false) continue;
+            else Debug.Log($"{missionItem.MissionCondition} comleted");
 
-            GameObject newItem = Instantiate(_missionItemIconInfo, _missionsContent.transform);
-            var newMissionItemIconInfo = newItem.GetComponent<MissionItemIconInfo>();
+            GameObject itemObj = Instantiate(_missionItemIconInfo, _missionsContent.transform);
+            var newMissionItemIconInfo = itemObj.GetComponent<MissionItemIconInfo>();
 
-            int currentProgress = rewardType == MissionItem.RewardType.Coins ? _appData.GetDefeatedEnemies() : _appData.GetDefeatedBosses();
-            item.CurProgress = currentProgress;
+            int currentProgress = missionItem.Type == MissionItem.RewardType.Coins ? _appData.GetDefeatedEnemies() : _appData.GetDefeatedBosses();
 
-            newMissionItemIconInfo.SetInfo(
-                item.RewardSprite,
-                item.MissionCondition,
-                item.CurProgress,
-                item.MaxProgress
-            );
+            newMissionItemIconInfo.SetInfo( missionItem, currentProgress);
 
-            newItem.GetComponent<Button>().onClick.AddListener(() => { OnItemInfoClick(item, newItem); });
+            var missionButton = itemObj.GetComponent<Button>();
+            if (_appData.IsMissionCompleted(missionItem.MissionCondition))
+            {
+                missionButton.onClick.AddListener(() => { OnItemInfoClick(missionItem, missionButton, currentProgress); });
+            }
+            else
+            {
+                missionButton.interactable = false;
+            }
         }
     }
 
-    private void OnItemInfoClick(MissionItem item, GameObject missionObject)
+    private void OnItemInfoClick(MissionItem missionItem, Button missionButton, int progress)
     {
-        if (item.CurProgress >= item.MaxProgress)
+        if (progress >= missionItem.MaxProgress)
         {
-            switch (item.Type)
+            switch (missionItem.Type)
             {
                 case MissionItem.RewardType.Coins:
-                    _appData.AddResourceCoin(item.Reward);
+                    _appData.AddResourceCoin(missionItem.Reward);
                     break;
                 case MissionItem.RewardType.Crowbars:
-                    _appData.AddResourceCrowbar(item.Reward);
+                    _appData.AddResourceCrowbar(missionItem.Reward);
                     break;
             }
 
-            Destroy(missionObject);
+            _appData.CompleteMission(missionItem.MissionCondition);
+            missionButton.interactable = false;
+            Debug.Log($"{missionItem.MissionCondition} claimed");
             CheckAndRespawnMissions();
         }
     }
@@ -66,10 +71,9 @@ public class MissionsManager : MonoBehaviour
     {
         if (AllMissionsCompleted(_coinMissions) && AllMissionsCompleted(_crowbarMissions))
         {
-            ResetMissions(_coinMissions);
-            ResetMissions(_crowbarMissions);
-            InitializeItems(_coinMissions, MissionItem.RewardType.Coins);
-            InitializeItems(_crowbarMissions, MissionItem.RewardType.Crowbars);
+            ResetMissions();
+            InitializeItems(_coinMissions);
+            InitializeItems(_crowbarMissions);
         }
     }
 
@@ -77,34 +81,16 @@ public class MissionsManager : MonoBehaviour
     {
         foreach (var mission in missions)
         {
-            if (mission.CurProgress < mission.MaxProgress) return false;
+            if (_appData.IsMissionCompleted(mission.MissionCondition) == false)
+            {
+                return false;
+            }   
         }
         return true;
     }
 
-    private void ResetMissions(List<MissionItem> missions)
+    private void ResetMissions()
     {
-        foreach (var mission in missions)
-        {
-            mission.CurProgress = 0;
-        }
-    }
-}
-
-
-[Serializable]
-public class MissionItem
-{
-    public string MissionCondition;
-    public int CurProgress;
-    public int MaxProgress;
-    public Sprite RewardSprite;
-    public int Reward;
-    public RewardType Type;
-
-    public enum RewardType
-    {
-        Coins,
-        Crowbars
+        _appData.ResetProgress();
     }
 }
