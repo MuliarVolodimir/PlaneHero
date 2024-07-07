@@ -66,6 +66,7 @@ public class SlotMachineUI : MonoBehaviour
             AudioManager.Instance.PlayOneShotSound(_winClip);
             GameObject particle = Instantiate(_winParticle, _particlePos);
             Destroy(particle, _winClip.length);
+            _popupScreen.gameObject.SetActive(true);
             _popupScreen.ShowReward(sprite, $"+{reward}!");
         }
         else

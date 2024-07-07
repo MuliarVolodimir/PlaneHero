@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ApplicationData
 {
@@ -33,7 +32,7 @@ public class ApplicationData
     private List<string> _unlockedPlanes = new List<string> { "StartPlane" };
 
     private int _defeatedEnemies = 200;
-    private int _defeatedBosses = 15;
+    private int _defeatedBosses = 10;
     private int _gameLevel = 1;
     private int _expCount = 0;
     private int _expToTheNextLvl = 100;
@@ -144,28 +143,18 @@ public class ApplicationData
     {
         _defeatedBosses = 0;
         _defeatedEnemies = 0;
-        foreach (var mission in _comletedMissions)
-        {
-            _comletedMissions.Remove(mission);
-        }
         _comletedMissions.Clear();
     }
 
     public bool IsMissionCompleted(string missionName)
     {
-        if (_comletedMissions.Contains(missionName))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        bool isCompleted = _comletedMissions.Contains(missionName);
+        return isCompleted;
     }
 
     public void CompleteMission(string missionName)
     {
-        if (!_comletedMissions.Contains(missionName))
+        if (IsMissionCompleted(missionName) == false)
         {
             _comletedMissions.Add(missionName);
         }

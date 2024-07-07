@@ -18,7 +18,6 @@ public class MainUI : MonoBehaviour
     [SerializeField] GameObject _settingsScreen;
     [SerializeField] GameObject _choosePlaneScreen;
     [SerializeField] GameObject _shopScreen;
-    [SerializeField] GameObject _popupScreen;
 
     [SerializeField] AudioClip _applyButtonClip;
     [SerializeField] AudioClip _cancelButtonClip;
@@ -31,7 +30,7 @@ public class MainUI : MonoBehaviour
 
     private void Start()
     {
-        _screens = new List<GameObject> { _popupScreen, _settingsScreen, _shopScreen, _slotMachineScreen, _missionsScreen, _choosePlaneScreen };
+        _screens = new List<GameObject> { _settingsScreen, _shopScreen, _slotMachineScreen, _missionsScreen, _choosePlaneScreen };
 
         foreach (var screen in _screens)
         {

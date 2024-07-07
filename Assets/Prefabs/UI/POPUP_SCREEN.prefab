@@ -146,13 +146,14 @@ GameObject:
   - component: {fileID: 8314032711058051156}
   - component: {fileID: 4213195220770553888}
   - component: {fileID: 8069217460695983708}
+  - component: {fileID: 1792163182752355692}
   m_Layer: 5
   m_Name: POPUP_SCREEN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8973410613735414583
 RectTransform:
   m_ObjectHideFlags: 0
@@ -223,10 +224,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803fb262a822c7e4b91bc6c9490588aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _screenVisibility: {fileID: 1792163182752355692}
   _itemImage: {fileID: 1045697682889761011}
   _confirmButton: {fileID: 5519938507021388629}
   _messageText: {fileID: 483006820748756128}
   _aplayClip: {fileID: 0}
+--- !u!225 &1792163182752355692
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725868833325587033}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2953057905392434046
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class ChestGameController : MonoBehaviour
         _maxTapCounts = _tapCount;
         _chestButton.onClick.AddListener(OnTap);
         _chestCount = chestCount;
+        _chestCountsText.text = $"x{_chestCount}";
 
         _chestCountsText.text = $"x{_chestCount}";
         _isInteractive = true;
@@ -49,13 +50,13 @@ public class ChestGameController : MonoBehaviour
             _chestCount--;
             
             _tapCount = _maxTapCounts;
-            OpenChest();
+            StartCoroutine(OpenChest());
         }
     }
 
     private IEnumerator OpenChest()
     {
-        AudioManager.Instance.PlayOneShotSound(_openChestClip);
+        //AudioManager.Instance.PlayOneShotSound(_openChestClip);
         //GameObject particle = Instantiate(_particleSystem, _particleSpawnPos.transform);
         yield return new WaitForSeconds(1f);
 
@@ -79,7 +80,8 @@ public class ChestGameController : MonoBehaviour
 
     private void CheckOtherChests()
     {
-        if (_chestCount > 0)
+        _chestCountsText.text = $"x{_chestCount}";
+        if (_chestCount >= 0)
         {
             _chestButton.gameObject.SetActive(true);
             _isInteractive = true;
