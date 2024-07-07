@@ -6,6 +6,7 @@ public class PlaneController : MonoBehaviour, IDamagable
     [SerializeField] int _maxHealth;
     [SerializeField] int _damage;
     [SerializeField] float _speed = 5.0f;
+    [SerializeField] LayerMask _layerMask;
     [SerializeField] GameObject _bulletPrefab;
     [SerializeField] Transform _firePoint;
     [SerializeField] float _fireRate = 1f;
@@ -49,7 +50,7 @@ public class PlaneController : MonoBehaviour, IDamagable
             _nextFireTime = Time.time + _fireRate;
             GameObject bulletObj = Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
             var bullet = bulletObj.GetComponent<Bullet>();
-            bullet.InitBullet(7.5f, _damage);
+            bullet.InitBullet(7.5f, _damage, _layerMask);
             bulletObj.SetActive(true);
             Destroy(bulletObj, 2f);
         }

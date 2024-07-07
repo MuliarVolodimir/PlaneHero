@@ -38,7 +38,7 @@ public class ApplicationData
     private int _expToTheNextLvl = 100;
     private List<string> _comletedMissions = new List<string>();
 
-    public event Action<int, int> OnExpChanged;
+    public event Action<int, int, int> OnExpChanged;
     public event Action<int, int> OnResourcesChanged;
 
     public void AddExp(int exp)
@@ -47,16 +47,21 @@ public class ApplicationData
 
         if (_expCount >= _expToTheNextLvl)
         {
-            var expTemp = Math.Abs(_expToTheNextLvl - _expCount);
+            var expTemp = 0;
+            if (_expCount > _expToTheNextLvl)
+            {
+                expTemp = _expCount - _expToTheNextLvl;
+            }
             _expCount = expTemp;
             _gameLevel++;
         }
-        OnExpChanged?.Invoke(_expCount, _gameLevel);
+
+        OnExpChanged?.Invoke(_expCount, _expToTheNextLvl, _gameLevel);
     }
 
-    public (int, int) GetExp()
+    public (int, int, int) GetExp()
     {
-        return (_expCount, _gameLevel);
+        return (_expCount, _expToTheNextLvl, _gameLevel);
     }
 
     public void InitPlanes(List<Item> plane)

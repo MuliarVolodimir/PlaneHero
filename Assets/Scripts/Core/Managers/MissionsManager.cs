@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -82,6 +81,7 @@ public class MissionsManager : MonoBehaviour
     {
         if (AllMissionsCompleted(_coinMissions) && AllMissionsCompleted(_crowbarMissions))
         {
+            _appData.AddExp(_expReward);
             ResetMissions();
             InitializeItems(_coinMissions);
             InitializeItems(_crowbarMissions);
@@ -91,7 +91,6 @@ public class MissionsManager : MonoBehaviour
 
     private bool AllMissionsCompleted(List<MissionItem> missions)
     {
-        _appData.AddExp(_expReward);
         if (_completedMissions == _totalMissions)
         {
             _completedMissions = 0;
