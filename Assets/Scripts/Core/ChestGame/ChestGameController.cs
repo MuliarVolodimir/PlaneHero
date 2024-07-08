@@ -16,6 +16,7 @@ public class ChestGameController : MonoBehaviour
     [SerializeField] PopupScreen _popupScreen;
     [SerializeField] Animator _animator;
 
+    [SerializeField] ParticleSystem _particleSystem;
     [SerializeField] AudioClip _tapChestClip;
     [SerializeField] AudioClip _openChestClip;
 
@@ -42,7 +43,7 @@ public class ChestGameController : MonoBehaviour
 
         _tapCount--;
 
-        if (_tapCount <= 0 && _isInteractive)
+        if (_tapCount < 0 && _isInteractive)
         {
             _isInteractive = false;
             _chestButton.gameObject.SetActive(false);

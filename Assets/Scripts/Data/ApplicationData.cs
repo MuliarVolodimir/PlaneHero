@@ -31,37 +31,33 @@ public class ApplicationData
     private string _curSelectedPlane = "StartPlane";
     private List<string> _unlockedPlanes = new List<string> { "StartPlane" };
 
-    private int _defeatedEnemies = 200;
-    private int _defeatedBosses = 10;
+    //start values
+    private int _defeatedEnemies = 0;
+    private int _defeatedBosses = 0;
     private int _gameLevel = 1;
-    private int _expCount = 0;
-    private int _expToTheNextLvl = 100;
+    private int _bossLvlRate = 10;
+
     private List<string> _comletedMissions = new List<string>();
 
-    public event Action<int, int, int> OnExpChanged;
+    public event Action<int> OnLvlChanged;
     public event Action<int, int> OnResourcesChanged;
 
-    public void AddExp(int exp)
+    public void AddLevel()
     {
-        _expCount += exp;
+        _gameLevel++;
 
-        if (_expCount >= _expToTheNextLvl)
-        {
-            var expTemp = 0;
-            if (_expCount > _expToTheNextLvl)
-            {
-                expTemp = _expCount - _expToTheNextLvl;
-            }
-            _expCount = expTemp;
-            _gameLevel++;
-        }
-
-        OnExpChanged?.Invoke(_expCount, _expToTheNextLvl, _gameLevel);
+        OnLvlChanged?.Invoke(_gameLevel);
+        SaveData();
     }
 
-    public (int, int, int) GetExp()
+    public int GetExp()
     {
-        return (_expCount, _expToTheNextLvl, _gameLevel);
+        return  _gameLevel;
+    }
+
+    public int GetBossLvlRate()
+    {
+        return _bossLvlRate;    
     }
 
     public void InitPlanes(List<Item> plane)
@@ -78,6 +74,7 @@ public class ApplicationData
     {
         _unlockedPlanes.Add(name);
         _curSelectedPlane = name;
+        SaveData();
     }
 
     public string GetPlane()
@@ -96,6 +93,7 @@ public class ApplicationData
         {
             _resources[RESOURCE_COIN_ID].Count += amount;
             OnResourcesChanged?.Invoke(_resources[RESOURCE_COIN_ID].Count, _resources[RESOURCE_CROWBAR_ID].Count);
+            SaveData();
         }
     }
 
@@ -105,6 +103,7 @@ public class ApplicationData
         {
             _resources[RESOURCE_CROWBAR_ID].Count += amount;
             OnResourcesChanged?.Invoke(_resources[RESOURCE_COIN_ID].Count, _resources[RESOURCE_CROWBAR_ID].Count);
+            SaveData();
         }
     }
 
@@ -126,12 +125,14 @@ public class ApplicationData
     public void SetPlane(string name)
     {
         _curSelectedPlane = name;
+        SaveData();
     }
 
     public void AddEnemiesBosses(int enemies, int bosses)
     {
         _defeatedEnemies += enemies;
         _defeatedBosses += bosses;
+        SaveData();
     }
 
     public int GetDefeatedEnemies()
@@ -149,6 +150,7 @@ public class ApplicationData
         _defeatedBosses = 0;
         _defeatedEnemies = 0;
         _comletedMissions.Clear();
+        SaveData();
     }
 
     public bool IsMissionCompleted(string missionName)
@@ -163,12 +165,20 @@ public class ApplicationData
         {
             _comletedMissions.Add(missionName);
         }
+        SaveData();
     }
 
     public void SaveData()
     {
         PlayerPrefs.SetInt("Coins", _resources[RESOURCE_COIN_ID].Count);
         PlayerPrefs.SetInt("Crowbars", _resources[RESOURCE_CROWBAR_ID].Count);
+        PlayerPrefs.SetInt("DefeatedEnemies", _defeatedEnemies);
+        PlayerPrefs.SetInt("DefeatedBosses", _defeatedBosses);
+        PlayerPrefs.SetInt("GameLevel", _gameLevel);
+
+        PlayerPrefs.SetString("CurSelectedPlane", _curSelectedPlane);
+        PlayerPrefs.SetString("UnlockedPlanes", string.Join(",", _unlockedPlanes));
+        PlayerPrefs.SetString("CompletedMissions", string.Join(",", _comletedMissions));
 
         PlayerPrefs.Save();
     }
@@ -182,6 +192,30 @@ public class ApplicationData
         if (PlayerPrefs.HasKey("Crowbars"))
         {
             _resources[RESOURCE_CROWBAR_ID].Count = PlayerPrefs.GetInt("Crowbars");
+        }
+        if (PlayerPrefs.HasKey("DefeatedEnemies"))
+        {
+            _defeatedEnemies = PlayerPrefs.GetInt("DefeatedEnemies");
+        }
+        if (PlayerPrefs.HasKey("DefeatedBosses"))
+        {
+            _defeatedBosses = PlayerPrefs.GetInt("DefeatedBosses");
+        }
+        if (PlayerPrefs.HasKey("GameLevel"))
+        {
+            _gameLevel = PlayerPrefs.GetInt("GameLevel");
+        }
+        if (PlayerPrefs.HasKey("CurSelectedPlane"))
+        {
+            _curSelectedPlane = PlayerPrefs.GetString("CurSelectedPlane");
+        }
+        if (PlayerPrefs.HasKey("UnlockedPlanes"))
+        {
+            _unlockedPlanes = new List<string>(PlayerPrefs.GetString("UnlockedPlanes").Split(','));
+        }
+        if (PlayerPrefs.HasKey("CompletedMissions"))
+        {
+            _comletedMissions = new List<string>(PlayerPrefs.GetString("CompletedMissions").Split(','));
         }
     }
 }

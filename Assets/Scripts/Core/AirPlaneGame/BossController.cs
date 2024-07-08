@@ -1,30 +1,30 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour, IDamagable
+public class BossController : MonoBehaviour, IDamagable
 {
     [SerializeField] int _maxHealth;
     [SerializeField] int _damage;
-    [SerializeField] float _fireRate;
+    [SerializeField] float _fireRate = 1f;
 
     [SerializeField] LayerMask _layerMask;
     [SerializeField] GameObject _bulletPrefab;
-    [SerializeField] Transform _firePoint;
+    [SerializeField] List<Transform> _firePoint;
 
     [SerializeField] Animator _animator;
     [SerializeField] AudioClip _dieClip;
 
-    private float _fireTime;
     private int _health;
-    private bool _canShoot;
-    
+    private bool _canShoot = false;
+    private float _nextFireTime;
 
     public event Action OnDie;
 
-    void Start()
+    private void Start()
     {
-        _animator = GetComponent<Animator>();
         _health = _maxHealth;
+        _animator = GetComponent<Animator>();
         _canShoot = false;
     }
 
@@ -42,14 +42,17 @@ public class EnemyController : MonoBehaviour, IDamagable
     {
         if (_canShoot)
         {
-            if (Time.time >= _fireTime)
+            if (Time.time >= _nextFireTime)
             {
-                _fireTime = Time.time + _fireRate;
-                GameObject bulletObj = Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
-                var bullet = bulletObj.GetComponent<Bullet>();
-                bullet.InitBullet(4.5f, _damage, _layerMask);
-                bulletObj.SetActive(true);
-                Destroy(bulletObj, 2f);
+                _nextFireTime = Time.time + _fireRate;
+                for (int i = 0; i < _firePoint.Count; i++)
+                {
+                    GameObject bulletObj = Instantiate(_bulletPrefab, _firePoint[i].position, _firePoint[i].rotation);
+                    var bullet = bulletObj.GetComponent<Bullet>();
+                    bullet.InitBullet(4.5f, _damage, _layerMask);
+                    bulletObj.SetActive(true);
+                    Destroy(bulletObj, 2f);
+                }
             }
         }
     }
@@ -58,6 +61,7 @@ public class EnemyController : MonoBehaviour, IDamagable
     {
         _animator.ResetTrigger("Damage");
         _animator.SetTrigger("Damage");
+
         _health -= amount;
         if (_health <= 0)
         {

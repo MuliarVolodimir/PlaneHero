@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour, IDamagable
             return;
         }
 
-        Debug.DrawRay(transform.position, dir, Color.red);
+        //Debug.DrawRay(transform.position, dir, Color.red);
     }
     public void TakeDamage(int amount)
     {

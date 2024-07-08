@@ -6,21 +6,33 @@ public class PlaneController : MonoBehaviour, IDamagable
     [SerializeField] int _maxHealth;
     [SerializeField] int _damage;
     [SerializeField] float _speed = 5.0f;
+    [SerializeField] float _fireRate = 1f;
+
+    [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] LayerMask _layerMask;
     [SerializeField] GameObject _bulletPrefab;
     [SerializeField] Transform _firePoint;
-    [SerializeField] float _fireRate = 1f;
+
+    [SerializeField] AudioClip _dieClip;
+    [SerializeField] Animator _animator;
 
     private int _health;
     private Vector3 _targetPosition;
     private bool _isMoving = false;
     private float _nextFireTime = 0f;
+    private ApplicationData _appData;
 
     public event Action OnDie;
 
     private void Start()
     {
         _health = _maxHealth;
+
+        _appData = ApplicationData.Instance;
+        var planeIndex = _appData.GetPlane();
+        var sprite = _appData.GetPlanes().Find(plane => plane.Name == planeIndex).Sprite;
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _spriteRenderer.sprite = sprite;
     }
 
     void Update()

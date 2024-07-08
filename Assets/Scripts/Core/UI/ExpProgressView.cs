@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class ExpProgressView : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _curLvlText;
+    [SerializeField] TextMeshProUGUI _curLvlStateText;
     [SerializeField] Image _currExpProgress;
 
     private ApplicationData _appData;
@@ -12,17 +13,23 @@ public class ExpProgressView : MonoBehaviour
     private void Start()
     {
         _appData = ApplicationData.Instance;
-        _appData.OnExpChanged += _appData_OnExpChanged;
+        _appData.OnLvlChanged += _appData_OnExpChanged;
 
-        (int exp, int toTheNextlvl, int lvl) = _appData.GetExp();
-        _appData_OnExpChanged(exp, toTheNextlvl, lvl);
+        int lvl = _appData.GetExp();
+        _appData_OnExpChanged(lvl);
     }
 
-    private void _appData_OnExpChanged(int expCount, int expToTheNextLvl, int lvl)
+    private void _appData_OnExpChanged(int lvl)
     {
-        Debug.Log($"expCount: {expCount}, expToTheNextLvl: {expToTheNextLvl}, lvl: {lvl}");
+        if (lvl % _appData.GetBossLvlRate() == 0)
+        {
+            _curLvlStateText.text = $"WARNING!!! \n BOSS DETECTED!!!";
+        }
+        else
+        {
+            _curLvlStateText.text = $"ENEMY DETECTED!";
+        }
 
-        _currExpProgress.fillAmount = (float)expCount / expToTheNextLvl;
         _curLvlText.text = $"LVL: {lvl}";
     }
 }

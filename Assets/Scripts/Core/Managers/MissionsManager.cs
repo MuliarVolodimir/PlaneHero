@@ -1,14 +1,9 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MissionsManager : MonoBehaviour
 {
-    [SerializeField] Image _expProgressBar;
-    [SerializeField] TextMeshProUGUI _expRewardText;
-    [SerializeField] int _expReward;
-
     [SerializeField] List<MissionItem> _coinMissions;
     [SerializeField] List<MissionItem> _crowbarMissions;
     [SerializeField] GameObject _missionItemIconInfo;
@@ -25,8 +20,6 @@ public class MissionsManager : MonoBehaviour
         _curMissionsObjects = new List<GameObject>();
         InitializeItems(_coinMissions);
         InitializeItems(_crowbarMissions);
-        UpdateExpMissionProgress();
-        Debug.Log(_totalMissions);
     }
 
     // spawn mission objects
@@ -81,12 +74,10 @@ public class MissionsManager : MonoBehaviour
     {
         if (AllMissionsCompleted(_coinMissions) && AllMissionsCompleted(_crowbarMissions))
         {
-            _appData.AddExp(_expReward);
             ResetMissions();
             InitializeItems(_coinMissions);
             InitializeItems(_crowbarMissions);
         }
-        UpdateExpMissionProgress();
     }
 
     private bool AllMissionsCompleted(List<MissionItem> missions)
@@ -115,19 +106,5 @@ public class MissionsManager : MonoBehaviour
         }
         _curMissionsObjects.Clear();
         _appData.ResetProgress();
-    }
-
-    private void UpdateExpMissionProgress()
-    {
-        if (_completedMissions <= _totalMissions)
-        {
-            _expProgressBar.fillAmount = _completedMissions / _totalMissions;
-            _expRewardText.text = $"x{_expReward}";
-        }
-        else
-        {
-            _expProgressBar.fillAmount = 1f;
-            _expRewardText.text = $"CLAIMED";
-        }
     }
 }
