@@ -32,7 +32,7 @@ public class PlaneGameManager : MonoBehaviour
     {
         _appData = ApplicationData.Instance;
 
-        int lvl = _appData.GetExp();
+        int lvl = _appData.GetLevel();
         _bossLevel = lvl % _appData.GetBossLvlRate() == 0 ? true : false;
 
         _waveCount = UnityEngine.Random.Range(2, _maxEnemiesWaves);
@@ -124,6 +124,7 @@ public class PlaneGameManager : MonoBehaviour
     private void BossController_OnDie()
     {
         GameEnd(true);
+        _appData.AddEnemiesBosses(0, 1);
     }
 
     public void SetPause()

@@ -15,7 +15,7 @@ public class ExpProgressView : MonoBehaviour
         _appData = ApplicationData.Instance;
         _appData.OnLvlChanged += _appData_OnExpChanged;
 
-        int lvl = _appData.GetExp();
+        int lvl = _appData.GetLevel();
         _appData_OnExpChanged(lvl);
     }
 
