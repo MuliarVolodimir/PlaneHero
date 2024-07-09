@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Corn
   m_EditorClassIdentifier: 
   Name: Corn
-  Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  Price: 0
+  Sprite: {fileID: -137708746, guid: d3c900ebbaa02f44cb3db09a73b88f82, type: 3}

@@ -17,6 +17,7 @@ public class BossController : MonoBehaviour, IDamagable
 
     private int _health;
     private bool _canShoot = false;
+    private bool _damagable = false;
     private float _nextFireTime;
 
     public event Action OnDie;
@@ -26,6 +27,7 @@ public class BossController : MonoBehaviour, IDamagable
         _health = _maxHealth;
         _animator = GetComponent<Animator>();
         _canShoot = false;
+        _damagable = true;
     }
 
     private void Update()
@@ -59,6 +61,7 @@ public class BossController : MonoBehaviour, IDamagable
 
     public void TakeDamage(int amount)
     {
+        if (!_damagable) return;
         _animator.ResetTrigger("Damage");
         _animator.SetTrigger("Damage");
 

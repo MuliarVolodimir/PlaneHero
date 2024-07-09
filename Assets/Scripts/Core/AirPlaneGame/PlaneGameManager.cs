@@ -33,7 +33,8 @@ public class PlaneGameManager : MonoBehaviour
         _appData = ApplicationData.Instance;
 
         int lvl = _appData.GetLevel();
-        _bossLevel = lvl % _appData.GetBossLvlRate() == 0 ? true : false;
+        _bossLevel = (float)lvl % _appData.GetBossLvlRate() == 0 ? true : false;
+        Debug.Log(_bossLevel.ToString());
 
         _waveCount = UnityEngine.Random.Range(2, _maxEnemiesWaves);
         _loadingScreen.OnLoad += OnLoad;
@@ -119,12 +120,14 @@ public class PlaneGameManager : MonoBehaviour
         GameObject boss = Instantiate(_bosses[index], _bossSpawnPos);
         var bossController = boss.GetComponent<BossController>();
         bossController.OnDie += BossController_OnDie;
+        Debug.Log("boss spawned");
     }
 
     private void BossController_OnDie()
     {
         GameEnd(true);
         _appData.AddEnemiesBosses(0, 1);
+        Debug.Log("boss defeated");
     }
 
     public void SetPause()

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Seven
   m_EditorClassIdentifier: 
   Name: Seven
-  Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  Price: 0
+  Sprite: {fileID: -2042794968, guid: d3c900ebbaa02f44cb3db09a73b88f82, type: 3}

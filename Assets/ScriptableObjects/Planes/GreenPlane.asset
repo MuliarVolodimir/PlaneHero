@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22683fc81b34a2b4ca5633c60914e5fc, type: 3}
-  m_Name: Coin
+  m_Name: GreenPlane
   m_EditorClassIdentifier: 
-  Name: Coin
-  Price: 0
-  Sprite: {fileID: -429953105, guid: d3c900ebbaa02f44cb3db09a73b88f82, type: 3}
+  Name: GreenPlane
+  Price: 2500
+  Sprite: {fileID: -2037536583, guid: d3c900ebbaa02f44cb3db09a73b88f82, type: 3}
