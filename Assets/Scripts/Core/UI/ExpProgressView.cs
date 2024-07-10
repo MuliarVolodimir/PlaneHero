@@ -6,8 +6,6 @@ public class ExpProgressView : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _curLvlText;
     [SerializeField] TextMeshProUGUI _curLvlStateText;
-    [SerializeField] Image _currExpProgress;
-
     private ApplicationData _appData;
 
     private void Start()

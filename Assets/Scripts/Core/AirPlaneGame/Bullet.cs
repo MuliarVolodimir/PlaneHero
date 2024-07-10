@@ -30,9 +30,8 @@ public class Bullet : MonoBehaviour, IDamagable
             Destroy(gameObject);
             return;
         }
-
-        //Debug.DrawRay(transform.position, dir, Color.red);
     }
+
     public void TakeDamage(int amount)
     {
         Destroy(gameObject);

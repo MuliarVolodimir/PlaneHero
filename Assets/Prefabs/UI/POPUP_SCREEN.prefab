@@ -384,8 +384,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: -380681101, guid: c33c114100921fd4a9f646bbab71848b, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -405,10 +405,6 @@ PrefabInstance:
     - target: {fileID: 2308724784421047508, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_text
       value: CONFIRM
-      objectReference: {fileID: 0}
-    - target: {fileID: 2308724784421047508, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
-      propertyPath: m_fontSize
-      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 2497921097064956031, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Pivot.x
@@ -496,15 +492,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.b
-      value: 0.2358489
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
-      propertyPath: m_Color.r
-      value: 0.9760646
+      value: 0.79086626
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

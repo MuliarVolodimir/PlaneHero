@@ -120,6 +120,8 @@ public class PlaneGameManager : MonoBehaviour
         GameObject boss = Instantiate(_bosses[index], _bossSpawnPos);
         var bossController = boss.GetComponent<BossController>();
         bossController.OnDie += BossController_OnDie;
+        _enemiesObjects.Add(boss);
+
         Debug.Log("boss spawned");
     }
 

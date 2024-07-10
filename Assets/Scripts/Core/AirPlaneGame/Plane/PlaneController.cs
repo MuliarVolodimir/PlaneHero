@@ -9,6 +9,7 @@ public class PlaneController : MonoBehaviour, IDamagable
     [SerializeField] float _fireRate = 1f;
 
     [SerializeField] SpriteRenderer _spriteRenderer;
+    [SerializeField] GameObject _particle;
     [SerializeField] LayerMask _layerMask;
     [SerializeField] GameObject _bulletPrefab;
     [SerializeField] Transform _firePoint;
@@ -80,6 +81,9 @@ public class PlaneController : MonoBehaviour, IDamagable
 
     private void Die()
     {
+        AudioManager.Instance.PlayOneShotSound(_dieClip);
+        GameObject particle = Instantiate(_particle, transform.position, transform.rotation);
+        Destroy(particle, _dieClip.length);
         OnDie?.Invoke();
     }
 }

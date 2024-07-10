@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22683fc81b34a2b4ca5633c60914e5fc, type: 3}
-  m_Name: RedPlane
+  m_Name: PurplePlane
   m_EditorClassIdentifier: 
   Name: RedPlane
   Price: 1000
-  Sprite: {fileID: 1919433720, guid: d3c900ebbaa02f44cb3db09a73b88f82, type: 3}
+  Sprite: {fileID: -1670371120, guid: d3c900ebbaa02f44cb3db09a73b88f82, type: 3}

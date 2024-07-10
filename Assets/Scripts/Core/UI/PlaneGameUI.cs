@@ -10,6 +10,7 @@ public class PlaneGameUI : MonoBehaviour
     [SerializeField] GameObject _postScreen;
     [SerializeField] GameObject _pauseScreen;
 
+    [SerializeField] TextMeshProUGUI _postGameText;
     [SerializeField] TextMeshProUGUI _enemiesLeftText;
     [SerializeField] PlaneGameManager _planeManager;
 
@@ -40,11 +41,11 @@ public class PlaneGameUI : MonoBehaviour
     {
         if (isWin)
         {
-            Debug.Log("win");
+            _postGameText.text = $"CONGRATULATION! \n LEVEL COMPLETED!!!";
         }
         else
         {
-            Debug.Log("Lose");
+            _postGameText.text = $"LOSE! \n GOOD LUCK NEXT TIME!";
         }
         _postScreen.SetActive(true);
     }
