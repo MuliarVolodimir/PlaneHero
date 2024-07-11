@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class EnemyController : MonoBehaviour, IDamagable
 {
@@ -15,6 +14,7 @@ public class EnemyController : MonoBehaviour, IDamagable
     [SerializeField] Transform _firePoint;
 
     [SerializeField] Animator _animator;
+    [SerializeField] AudioClip _shootClip;
     [SerializeField] AudioClip _dieClip;
 
     private float _fireTime;
@@ -48,6 +48,7 @@ public class EnemyController : MonoBehaviour, IDamagable
             if (Time.time >= _fireTime)
             {
                 _fireTime = Time.time + _fireRate;
+                AudioManager.Instance.PlayOneShotSound(_shootClip);
                 GameObject bulletObj = Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
                 var bullet = bulletObj.GetComponent<Bullet>();
                 bullet.InitBullet(_bulletSpeed, _damage, _layerMask);
@@ -59,6 +60,7 @@ public class EnemyController : MonoBehaviour, IDamagable
 
     public void TakeDamage(int amount)
     {
+        
         _animator.ResetTrigger("Damage");
         _animator.SetTrigger("Damage");
         _health -= amount;

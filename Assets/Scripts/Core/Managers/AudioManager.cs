@@ -23,12 +23,18 @@ public class AudioManager : MonoBehaviour
         _appData = ApplicationData.Instance;
     }
 
+    public void ResetBackgroundMusic()
+    {
+        _backgroundMusic.Stop();
+        _backgroundMusic.clip = null;
+    }
+
     public void SetBackGroundMusic(AudioClip clip)
     {
         if (clip != null)
         {
-            _backgroundMusic.mute = _appData.IsMusicMute;
             _backgroundMusic.clip = clip;
+            _backgroundMusic.mute = _appData.IsMusicMute;
             _backgroundMusic.loop = true;
             _backgroundMusic.Play();
         }

@@ -24,7 +24,8 @@ public class PlaneGameManager : MonoBehaviour
     private bool _gamePaused = false;
     private bool _bossLevel = false;
     private ApplicationData _appData;
-    
+
+    public event Action OnBossSpawned;
     public event Action<bool> OnGameEnd;
     public event Action<int> OnEnemiesCountChanged;
 
@@ -100,7 +101,7 @@ public class PlaneGameManager : MonoBehaviour
             {
                 if (_bossLevel)
                 {
-                    SpawnBoss();
+                    StartCoroutine(SpawnBoss());
                 }
                 else
                 {
@@ -114,15 +115,16 @@ public class PlaneGameManager : MonoBehaviour
         }
     }
 
-    private void SpawnBoss()
+    private IEnumerator SpawnBoss()
     {
+        OnBossSpawned?.Invoke();
+        yield return new WaitForSeconds(1f);
+
         var index = UnityEngine.Random.Range(0, _bosses.Count);
         GameObject boss = Instantiate(_bosses[index], _bossSpawnPos);
         var bossController = boss.GetComponent<BossController>();
         bossController.OnDie += BossController_OnDie;
         _enemiesObjects.Add(boss);
-
-        Debug.Log("boss spawned");
     }
 
     private void BossController_OnDie()

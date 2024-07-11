@@ -350,6 +350,7 @@ MonoBehaviour:
     Type: 1
   _missionItemIconInfo: {fileID: 813773629076967702, guid: 9942cb915c6c1e04382e47aef8feff45, type: 3}
   _missionsContent: {fileID: 1155318864}
+  _applyClip: {fileID: 8300000, guid: 01eafd8e9476397439eba78b77d0deba, type: 3}
 --- !u!1 &74434495
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -250}
+  m_AnchoredPosition: {x: 0, y: -250.00006}
   m_SizeDelta: {x: -200, y: -500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &74434497
@@ -675,15 +676,15 @@ PrefabInstance:
       objectReference: {fileID: -380681101, guid: c33c114100921fd4a9f646bbab71848b, type: 3}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.b
-      value: 0.46855342
+      value: 0.36013204
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.g
-      value: 0.90278804
+      value: 0.61723995
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.8238993
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1472,7 +1473,7 @@ MonoBehaviour:
   _leftButton: {fileID: 1378055700}
   _rightButton: {fileID: 952867153}
   _popupScreen: {fileID: 1590342120690130587}
-  _aplayClip: {fileID: 0}
+  _aplayClip: {fileID: 8300000, guid: 01eafd8e9476397439eba78b77d0deba, type: 3}
 --- !u!1 &492919721
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,7 +2348,7 @@ MonoBehaviour:
   _spinPrice: 10
   _rewardCoin: 200
   _rewardCrowbar: 50
-  _spinClip: {fileID: 0}
+  _spinClip: {fileID: 8300000, guid: ea0899f86cdaf0c498ee88980f5ffee8, type: 3}
 --- !u!114 &759811811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2375,9 +2376,9 @@ MonoBehaviour:
   _particlePos: {fileID: 1445416448}
   _winParticle: {fileID: 7528578474842516153, guid: 5c1f0fd235a2afe4e871b967ebdee03f, type: 3}
   _backButton: {fileID: 1143032612}
-  _winClip: {fileID: 0}
-  _loseClip: {fileID: 0}
-  _applyClip: {fileID: 0}
+  _winClip: {fileID: 8300000, guid: 9260d0a81eebd954a9583f55361e849d, type: 3}
+  _loseClip: {fileID: 8300000, guid: 4744e2a486cbd7549b1b7d5663754e19, type: 3}
+  _applyClip: {fileID: 8300000, guid: 01eafd8e9476397439eba78b77d0deba, type: 3}
   resultDelay: 1
 --- !u!224 &759811812 stripped
 RectTransform:
@@ -2758,7 +2759,8 @@ MonoBehaviour:
   _popupScreen: {fileID: 1590342120690130587}
   _chestGameController: {fileID: 7500874172918989815, guid: 602502bdef7468b42a2506a60cdcf72c, type: 3}
   _chestSpawnPos: {fileID: 1512982175}
-  _applyClip: {fileID: 0}
+  _applyClip: {fileID: 8300000, guid: 01eafd8e9476397439eba78b77d0deba, type: 3}
+  _errorClip: {fileID: 8300000, guid: eb6a6bcf6109d8b45b1d96324af380f3, type: 3}
 --- !u!1001 &943662651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2869,15 +2871,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.b
-      value: 0.46855342
+      value: 0.36013204
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.g
-      value: 0.90278804
+      value: 0.61723995
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.8238993
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -3379,8 +3381,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4286185358
+  m_fontColor: {r: 0.55610454, g: 1, b: 0.47484267, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4262,7 +4264,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -270.32007}
+  m_AnchoredPosition: {x: 0, y: -270.32013}
   m_SizeDelta: {x: -200, y: -540.64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1329064364
@@ -4835,9 +4837,9 @@ MonoBehaviour:
   _settingsScreen: {fileID: 6428442232076748414}
   _choosePlaneScreen: {fileID: 418812636}
   _shopScreen: {fileID: 827470192}
-  _applyButtonClip: {fileID: 0}
-  _cancelButtonClip: {fileID: 0}
-  _backgroundClip: {fileID: 0}
+  _applyButtonClip: {fileID: 8300000, guid: 01eafd8e9476397439eba78b77d0deba, type: 3}
+  _cancelButtonClip: {fileID: 8300000, guid: fcd468a7030b86643bb4762d0865f522, type: 3}
+  _backgroundClip: {fileID: 8300000, guid: f69770276a88eef429ca0430d0fa4a63, type: 3}
   _loadingScreen: {fileID: 1929327701}
 --- !u!1 &1564611748
 GameObject:
@@ -4905,8 +4907,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4286185358
+  m_fontColor: {r: 0.55610454, g: 1, b: 0.47484267, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5337,15 +5339,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.b
-      value: 0.46855342
+      value: 0.36013204
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.g
-      value: 0.90278804
+      value: 0.61723995
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.8238993
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -5568,15 +5570,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.b
-      value: 0.46855342
+      value: 0.36013204
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.g
-      value: 0.90278804
+      value: 0.61723995
       objectReference: {fileID: 0}
     - target: {fileID: 7128493587048290876, guid: 85737b458943d9740bb0ddde54cd530d, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.8238993
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -6777,7 +6779,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _muteMusicButton: {fileID: 188101280}
   _muteEffectsButton: {fileID: 240771209}
-  _applayClip: {fileID: 0}
+  _applayClip: {fileID: 8300000, guid: 01eafd8e9476397439eba78b77d0deba, type: 3}
   _OnMuteSprite: {fileID: -1490390272, guid: c33c114100921fd4a9f646bbab71848b, type: 3}
   _NonMuteSprite: {fileID: -736766474, guid: c33c114100921fd4a9f646bbab71848b, type: 3}
 --- !u!1 &4578256648247050361
@@ -7242,7 +7244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1350999874106476220, guid: 3d601cf6d19fb6a4981158f7828615be, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7227896838965042529, guid: 3d601cf6d19fb6a4981158f7828615be, type: 3}
       propertyPath: m_Pivot.x

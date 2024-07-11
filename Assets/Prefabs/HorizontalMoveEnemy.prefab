@@ -60,7 +60,8 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 2514220840208112591}
   _firePoint: {fileID: 3613104520520691121}
   _animator: {fileID: 551730013480894110}
-  _dieClip: {fileID: 0}
+  _shootClip: {fileID: 8300000, guid: fe3f5022f31ac3c4ba67c289c629172e, type: 3}
+  _dieClip: {fileID: 8300000, guid: 87aa12b591cce984682533d71b6a6060, type: 3}
 --- !u!61 &5667043490055314366
 BoxCollider2D:
   m_ObjectHideFlags: 0

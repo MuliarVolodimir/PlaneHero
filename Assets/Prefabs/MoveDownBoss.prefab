@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &705055620924282936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7809040440298866166}
+  m_Layer: 6
+  m_Name: dieParticlePos (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7809040440298866166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705055620924282936}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.3, y: -0.060000002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8940515719451072338}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2864742856253759554
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +146,70 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1533663936057249618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
+--- !u!1 &4424593831024036290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8940515719451072338}
+  m_Layer: 6
+  m_Name: dieParticlePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8940515719451072338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4424593831024036290}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.18, y: -0.35, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7809040440298866166}
+  - {fileID: 8482295408395584206}
+  m_Father: {fileID: 1533663936057249618}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5172844549105067564
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8482295408395584206}
+  m_Layer: 6
+  m_Name: dieParticlePos (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8482295408395584206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5172844549105067564}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.15, y: 0.45999998, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8940515719451072338}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5451668966694159145
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +492,7 @@ Transform:
   - {fileID: 8936520946055922245}
   - {fileID: 6281748630277348560}
   - {fileID: 3362899195173187289}
+  - {fileID: 8940515719451072338}
   - {fileID: 1758349722440498929}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -412,7 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f6f299abb51c4428a3c36dcbf7917a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 500
+  _maxHealth: 200
   _damage: 5
   _bulletSpeed: 3.5
   _fireRate: 0.8
@@ -424,8 +520,13 @@ MonoBehaviour:
   _firePoint:
   - {fileID: 6281748630277348560}
   - {fileID: 3362899195173187289}
+  _dieParticlePos:
+  - {fileID: 8940515719451072338}
+  - {fileID: 7809040440298866166}
+  - {fileID: 8482295408395584206}
   _animator: {fileID: 2098613647510709904}
-  _dieClip: {fileID: 0}
+  _shootClip: {fileID: 8300000, guid: fe3f5022f31ac3c4ba67c289c629172e, type: 3}
+  _dieClip: {fileID: 8300000, guid: 87aa12b591cce984682533d71b6a6060, type: 3}
 --- !u!95 &2098613647510709904
 Animator:
   serializedVersion: 5

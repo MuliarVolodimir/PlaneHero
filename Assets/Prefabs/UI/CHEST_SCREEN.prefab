@@ -548,9 +548,11 @@ MonoBehaviour:
   _tapCount: 5
   _popupScreen: {fileID: 2166947312706394888}
   _animator: {fileID: 4231291282874858553}
-  _particleSystem: {fileID: 0}
-  _tapChestClip: {fileID: 0}
-  _openChestClip: {fileID: 0}
+  _particle: {fileID: 7528578474842516153, guid: 5c1f0fd235a2afe4e871b967ebdee03f, type: 3}
+  _tapChestClips:
+  - {fileID: 8300000, guid: d1e29b00344297b48a40766fb96fd2a5, type: 3}
+  - {fileID: 8300000, guid: 3c7797dd966ee334783834f70073eb07, type: 3}
+  _openChestClip: {fileID: 8300000, guid: 887df4d0650a7f44abc07b2934ce1d85, type: 3}
 --- !u!1 &9048134046445112151
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +607,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8069217460695983708, guid: 772e7a7277cf2d04ebd44dfc687f8c45, type: 3}
+      propertyPath: _aplayClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 01eafd8e9476397439eba78b77d0deba, type: 3}
     - target: {fileID: 8973410613735414583, guid: 772e7a7277cf2d04ebd44dfc687f8c45, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

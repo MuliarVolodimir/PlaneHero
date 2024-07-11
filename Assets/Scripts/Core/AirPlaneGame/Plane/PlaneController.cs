@@ -14,8 +14,8 @@ public class PlaneController : MonoBehaviour, IDamagable
     [SerializeField] GameObject _bulletPrefab;
     [SerializeField] Transform _firePoint;
 
+    [SerializeField] AudioClip _shootClip;
     [SerializeField] AudioClip _dieClip;
-    [SerializeField] Animator _animator;
 
     private int _health;
     private Vector3 _targetPosition;
@@ -55,12 +55,13 @@ public class PlaneController : MonoBehaviour, IDamagable
             transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.deltaTime);
         }
     }
-
+    
     void Shoot()
     {
         if (Time.time >= _nextFireTime)
         {
             _nextFireTime = Time.time + _fireRate;
+            AudioManager.Instance.PlayOneShotSound(_shootClip);
             GameObject bulletObj = Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
             var bullet = bulletObj.GetComponent<Bullet>();
             bullet.InitBullet(7.5f, _damage, _layerMask);

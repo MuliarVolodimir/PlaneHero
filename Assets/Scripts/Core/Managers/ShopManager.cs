@@ -18,6 +18,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] GameObject _chestGameController;
     [SerializeField] GameObject _chestSpawnPos;
     [SerializeField] AudioClip _applyClip;
+    [SerializeField] AudioClip _errorClip;
 
     private ApplicationData _appData;
 
@@ -71,6 +72,7 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
+            AudioManager.Instance.PlayOneShotSound(_errorClip);
             _popupScreen.ShowMessage($"NOT ENOUGHT CROWBARS!");
         }
     }
@@ -85,6 +87,7 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
+            AudioManager.Instance.PlayOneShotSound(_errorClip);
             _popupScreen.ShowMessage($"NOT ENOUGHT COINS!");
         }
     }
@@ -101,6 +104,7 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
+            AudioManager.Instance.PlayOneShotSound(_errorClip);
             _popupScreen.ShowMessage($"PURCESE ERROR!");
         }
         */

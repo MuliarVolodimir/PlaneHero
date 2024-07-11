@@ -14,20 +14,32 @@ public class PlaneGameUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI _enemiesLeftText;
     [SerializeField] PlaneGameManager _planeManager;
 
+    [SerializeField] AudioClip _applyClip;
+    [SerializeField] AudioClip _backgroundClip;
+
     private void Start()
     {
+        AudioManager.Instance.SetBackGroundMusic(_backgroundClip);
+
         _mainMenuButton.onClick.AddListener(() => { OnMainMenu(); });
         _pauseButton.onClick.AddListener(() => { OnPause(); } );
 
         _planeManager.OnGameEnd += _planeManager_OnGameEnd;
         _planeManager.OnEnemiesCountChanged += _planeManager_OnEnemiesCountChanged;
+        _planeManager.OnBossSpawned += _planeManager_OnBossSpawned;
 
         _postScreen.SetActive(false);
         _pauseScreen.SetActive(false);
     }
 
+    private void _planeManager_OnBossSpawned()
+    {
+        _enemiesLeftText.text = $"BOSS";
+    }
+
     private void OnPause()
     {
+        AudioManager.Instance.PlayOneShotSound(_applyClip);
         _planeManager.SetPause();
         _pauseScreen.SetActive(!_pauseScreen.activeSelf);
     }
@@ -52,6 +64,8 @@ public class PlaneGameUI : MonoBehaviour
 
     private void OnMainMenu()
     {
+        AudioManager.Instance.PlayOneShotSound(_applyClip);
+        AudioManager.Instance.ResetBackgroundMusic();
         SceneLoader.Instance.LoadScene(SceneLoader.Scene.MainScene);
     }
 }

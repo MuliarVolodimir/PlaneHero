@@ -9,6 +9,8 @@ public class MissionsManager : MonoBehaviour
     [SerializeField] GameObject _missionItemIconInfo;
     [SerializeField] GameObject _missionsContent;
 
+    [SerializeField] AudioClip _applyClip;
+
     private float _completedMissions = 0f;
     private float _totalMissions = 0f;
     private List<GameObject> _curMissionsObjects;
@@ -51,6 +53,7 @@ public class MissionsManager : MonoBehaviour
     // claim reward and complite mission
     private void OnItemInfoClick(MissionItem missionItem, Button missionButton, int progress)
     {
+        AudioManager.Instance.PlayOneShotSound(_applyClip);
         if (progress >= missionItem.MaxProgress)
         {
             switch (missionItem.Type)

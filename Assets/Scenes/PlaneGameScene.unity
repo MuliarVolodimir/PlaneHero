@@ -783,7 +783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2072423057865743579, guid: 37e77b8b13e836841849ce486dcba9b1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3613510721485842807, guid: 37e77b8b13e836841849ce486dcba9b1, type: 3}
       propertyPath: m_Color.a
@@ -1414,6 +1414,8 @@ MonoBehaviour:
   _postGameText: {fileID: 307333204}
   _enemiesLeftText: {fileID: 158805527}
   _planeManager: {fileID: 1100649099}
+  _applyClip: {fileID: 8300000, guid: 01eafd8e9476397439eba78b77d0deba, type: 3}
+  _backgroundClip: {fileID: 8300000, guid: 8e0f2046f03ec3b40be83bd06ec9e81d, type: 3}
 --- !u!1 &1421352637
 GameObject:
   m_ObjectHideFlags: 0

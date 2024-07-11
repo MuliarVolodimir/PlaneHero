@@ -16,8 +16,8 @@ public class ChestGameController : MonoBehaviour
     [SerializeField] PopupScreen _popupScreen;
     [SerializeField] Animator _animator;
 
-    [SerializeField] ParticleSystem _particleSystem;
-    [SerializeField] AudioClip _tapChestClip;
+    [SerializeField] GameObject _particle;
+    [SerializeField] List<AudioClip> _tapChestClips;
     [SerializeField] AudioClip _openChestClip;
 
     private ApplicationData _appData = ApplicationData.Instance;
@@ -37,13 +37,14 @@ public class ChestGameController : MonoBehaviour
 
     public void OnTap()
     {
-        AudioManager.Instance.PlayOneShotSound(_tapChestClip);
+        var index = UnityEngine.Random.Range(0, _tapChestClips.Count);
+        AudioManager.Instance.PlayOneShotSound(_tapChestClips[index]);
         _animator.ResetTrigger("Tap");
         _animator.SetTrigger("Tap");
 
         _tapCount--;
 
-        if (_tapCount < 0 && _isInteractive)
+        if (_tapCount < 1 && _isInteractive)
         {
             _isInteractive = false;
             _chestButton.gameObject.SetActive(false);
@@ -57,8 +58,9 @@ public class ChestGameController : MonoBehaviour
 
     private IEnumerator OpenChest()
     {
-        //AudioManager.Instance.PlayOneShotSound(_openChestClip);
-        //GameObject particle = Instantiate(_particleSystem, _particleSpawnPos.transform);
+        AudioManager.Instance.PlayOneShotSound(_openChestClip);
+        GameObject particle = Instantiate(_particle, transform.position, transform.rotation);
+        Destroy(particle, _openChestClip.length);
         yield return new WaitForSeconds(1f);
 
         var index = UnityEngine.Random.Range(0, _chestItems.Count);
