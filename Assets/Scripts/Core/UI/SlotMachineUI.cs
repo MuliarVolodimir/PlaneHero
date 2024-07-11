@@ -10,6 +10,7 @@ public class SlotMachineUI : MonoBehaviour
     [SerializeField] List<Item> _slotItems;
     [SerializeField] Button _spinButton;
 
+    [SerializeField] GameObject _buttonsOffset;
     [SerializeField] PopupScreen _popupScreen;
     [SerializeField] Transform _particlePos;
     [SerializeField] GameObject _winParticle;
@@ -19,10 +20,11 @@ public class SlotMachineUI : MonoBehaviour
     [SerializeField] AudioClip _loseClip;
     [SerializeField] AudioClip _applyClip;
 
-    [SerializeField] float resultDelay = 1.0f;  // Delay before showing the result
+    [SerializeField] float resultDelay = 1.0f; 
 
     private void Start()
     {
+        _buttonsOffset.SetActive(false);
         _slotMachineSystem.InitializeSlots(_slotItems);
         _slotMachineSystem.OnSpinEnd += HandleSpinResult;
         _spinButton.onClick.AddListener(Spin);
@@ -32,6 +34,7 @@ public class SlotMachineUI : MonoBehaviour
     private void Spin()
     {
         AudioManager.Instance.PlayOneShotSound(_applyClip);
+        _buttonsOffset.gameObject.SetActive(true);
         _backButton.interactable = false;
         _spinButton.interactable = false;
         _slotMachineSystem.SpinSlots();
@@ -49,6 +52,7 @@ public class SlotMachineUI : MonoBehaviour
         else
         {
             _popupScreen.ShowMessage("NOT ENOUGH COINS!");
+            _buttonsOffset.SetActive(false);
             _spinButton.interactable = true;
             _backButton.interactable = true;
             return;
@@ -75,6 +79,7 @@ public class SlotMachineUI : MonoBehaviour
             _popupScreen.ShowMessage("TRY AGAIN!");
         }
 
+        _buttonsOffset.SetActive(false);
         _backButton.interactable = true;
         _spinButton.interactable = true;
     }
