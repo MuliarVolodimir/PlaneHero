@@ -14,6 +14,7 @@ public class ChestGameController : MonoBehaviour
     [SerializeField] int _tapCount;
 
     [SerializeField] PopupScreen _popupScreen;
+    [SerializeField] Transform _particlePos;
     [SerializeField] Animator _animator;
 
     [SerializeField] GameObject _particle;
@@ -44,7 +45,7 @@ public class ChestGameController : MonoBehaviour
 
         _tapCount--;
 
-        if (_tapCount < 1 && _isInteractive)
+        if (_tapCount < 0 && _isInteractive)
         {
             _isInteractive = false;
             _chestButton.gameObject.SetActive(false);
@@ -59,7 +60,7 @@ public class ChestGameController : MonoBehaviour
     private IEnumerator OpenChest()
     {
         AudioManager.Instance.PlayOneShotSound(_openChestClip);
-        GameObject particle = Instantiate(_particle, transform.position, transform.rotation);
+        GameObject particle = Instantiate(_particle, _particlePos.position, _particlePos.rotation);
         Destroy(particle, _openChestClip.length);
         yield return new WaitForSeconds(1f);
 
@@ -84,7 +85,7 @@ public class ChestGameController : MonoBehaviour
     private void CheckOtherChests()
     {
         _chestCountsText.text = $"x{_chestCount}";
-        if (_chestCount >= 0)
+        if (_chestCount > 0)
         {
             _chestButton.gameObject.SetActive(true);
             _isInteractive = true;

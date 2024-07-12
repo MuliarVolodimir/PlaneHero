@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a08ca64a95cf74fa33f8fefb4d6d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHealth: 5
   _damage: 1
   _speed: 7.5
   _fireRate: 0.1
