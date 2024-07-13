@@ -15,18 +15,20 @@ public class PlaneGameManager : MonoBehaviour
     [SerializeField] int _maxEnemiesWaves;
     [SerializeField] float _enemySpawnRate;
     [SerializeField] LoadingScreen _loadingScreen; 
-    private GameObject _playerObject;
-    private List<GameObject> _enemiesObjects;
 
     private int _waveCount = 0;
     private int _enemiesLeft = 0;
+    private int _defeatedEnemies;
     private bool _gameEnd = false;
     private bool _gamePaused = false;
     private bool _bossLevel = false;
+
     private ApplicationData _appData;
+    private GameObject _playerObject;
+    private List<GameObject> _enemiesObjects;
 
     public event Action OnBossSpawned;
-    public event Action<bool> OnGameEnd;
+    public event Action<bool, int> OnGameEnd;
     public event Action<int> OnEnemiesCountChanged;
 
     void Start()
@@ -88,6 +90,7 @@ public class PlaneGameManager : MonoBehaviour
         {
             _appData.AddEnemiesBosses(1, 0);
             _enemiesLeft--;
+            _defeatedEnemies++;
             OnEnemiesCountChanged?.Invoke(_enemiesLeft);
             CheckWin();
         }
@@ -131,6 +134,7 @@ public class PlaneGameManager : MonoBehaviour
     {
         GameEnd(true);
         _appData.AddEnemiesBosses(0, 1);
+        _defeatedEnemies++;
         Debug.Log("boss defeated");
     }
 
@@ -154,7 +158,7 @@ public class PlaneGameManager : MonoBehaviour
             _appData.AddLevel();
         }
         _gameEnd = true;
-        OnGameEnd?.Invoke(isWin);
+        OnGameEnd?.Invoke(isWin, _defeatedEnemies);
 
         if (_playerObject != null) Destroy(_playerObject);
         foreach (var item in _enemiesObjects)

@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b5d2392da23da048a5e8f51f96c59b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHealth: 5
   _damage: 1
   _bulletSpeed: 4.5
   _fireRate: 2

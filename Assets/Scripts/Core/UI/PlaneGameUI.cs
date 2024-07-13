@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,8 @@ public class PlaneGameUI : MonoBehaviour
     [SerializeField] GameObject _postScreen;
     [SerializeField] GameObject _pauseScreen;
 
-    [SerializeField] TextMeshProUGUI _postGameText;
+    [SerializeField] TextMeshProUGUI _gameActionText;
+    [SerializeField] TextMeshProUGUI _gameResultsText;
     [SerializeField] TextMeshProUGUI _enemiesLeftText;
     [SerializeField] PlaneGameManager _planeManager;
 
@@ -22,18 +24,21 @@ public class PlaneGameUI : MonoBehaviour
         AudioManager.Instance.SetBackGroundMusic(_backgroundClip);
 
         _mainMenuButton.onClick.AddListener(() => { OnMainMenu(); });
-        _pauseButton.onClick.AddListener(() => { OnPause(); } );
+        _pauseButton.onClick.AddListener(() => { OnPause(); });
 
         _planeManager.OnGameEnd += _planeManager_OnGameEnd;
         _planeManager.OnEnemiesCountChanged += _planeManager_OnEnemiesCountChanged;
         _planeManager.OnBossSpawned += _planeManager_OnBossSpawned;
 
+        _gameActionText.gameObject.SetActive(false);
         _postScreen.SetActive(false);
         _pauseScreen.SetActive(false);
     }
 
     private void _planeManager_OnBossSpawned()
     {
+        _gameActionText.color = Color.red;
+        StartCoroutine(DisplayActionText("WARNING!!! \n BOSS", 2f));
         _enemiesLeftText.text = $"BOSS";
     }
 
@@ -49,16 +54,19 @@ public class PlaneGameUI : MonoBehaviour
         _enemiesLeftText.text = $"Enemies left: {enemiesCount}";
     }
 
-    private void _planeManager_OnGameEnd(bool isWin)
+    private void _planeManager_OnGameEnd(bool isWin, int defeatedEnemies)
     {
         if (isWin)
         {
-            _postGameText.text = $"CONGRATULATION! \n LEVEL COMPLETED!!!";
+            _gameActionText.color = Color.green;
+            StartCoroutine(DisplayActionText($"CONGRATULATION!!! \n LEVEL COMPLETED!", 0f)); 
         }
         else
         {
-            _postGameText.text = $"LOSE! \n GOOD LUCK NEXT TIME!";
+            _gameActionText.color = Color.red;
+            StartCoroutine(DisplayActionText($"LOSE! \n GOOD LUCK NEXT TIME!", 0f));
         }
+        _gameResultsText.text = $"Enemies defeated: {defeatedEnemies}";
         _postScreen.SetActive(true);
     }
 
@@ -67,5 +75,18 @@ public class PlaneGameUI : MonoBehaviour
         AudioManager.Instance.PlayOneShotSound(_applyClip);
         AudioManager.Instance.ResetBackgroundMusic();
         SceneLoader.Instance.LoadScene(SceneLoader.Scene.MainScene);
+    }
+
+    private IEnumerator DisplayActionText(string message, float duration)
+    {
+        _gameActionText.text = message;
+        _gameActionText.gameObject.SetActive(true);
+ 
+        yield return new WaitForSeconds(duration);
+
+        if (duration > 0)
+        {
+            _gameActionText.gameObject.SetActive(false);
+        }
     }
 }

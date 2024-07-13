@@ -30,7 +30,7 @@ public class MainUI : MonoBehaviour
 
     private void Start()
     {
-        _screens = new List<GameObject> { _settingsScreen, _shopScreen, _slotMachineScreen, _missionsScreen, _choosePlaneScreen };
+        _screens = new List<GameObject> { _settingsScreen, _mainScreen, _shopScreen, _slotMachineScreen, _missionsScreen, _choosePlaneScreen };
 
         foreach (var screen in _screens)
         {
@@ -121,6 +121,7 @@ public class MainUI : MonoBehaviour
         }
         else
         {
+            screen.SetActive(false);
             _mainScreen.SetActive(true);
             _currentActiveScreen = _mainScreen;
         }

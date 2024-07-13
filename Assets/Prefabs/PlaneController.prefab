@@ -83,7 +83,7 @@ MonoBehaviour:
   _maxHealth: 1
   _damage: 1
   _speed: 7.5
-  _fireRate: 0.1
+  _fireRate: 0.2
   _spriteRenderer: {fileID: 0}
   _particle: {fileID: 7903619681787693837, guid: 65a5ec76afd34da4b8058379c8108259, type: 3}
   _layerMask:

@@ -508,7 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f6f299abb51c4428a3c36dcbf7917a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 200
+  _maxHealth: 100
   _damage: 3
   _bulletSpeed: 3.5
   _fireRate: 0.8
