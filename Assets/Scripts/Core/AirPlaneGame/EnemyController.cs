@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour, IDamagable
@@ -19,8 +20,10 @@ public class EnemyController : MonoBehaviour, IDamagable
 
     private float _fireTime;
     private int _health;
+    private bool _isFalling;
     private bool _canShoot;
-    
+    private float _fallTime;
+    private float _fallRate = 0.5f;
 
     public event Action OnDie;
 
@@ -29,6 +32,7 @@ public class EnemyController : MonoBehaviour, IDamagable
         _animator = GetComponent<Animator>();
         _health = _maxHealth;
         _canShoot = false;
+        _isFalling = false;
     }
 
     private void Update()
@@ -60,7 +64,6 @@ public class EnemyController : MonoBehaviour, IDamagable
 
     public void TakeDamage(int amount)
     {
-        
         _animator.ResetTrigger("Damage");
         _animator.SetTrigger("Damage");
         _health -= amount;

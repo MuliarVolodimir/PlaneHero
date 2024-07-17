@@ -309,8 +309,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2923472540177999319}
   - {fileID: 5858122449916482664}
@@ -330,10 +330,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b5d2392da23da048a5e8f51f96c59b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 5
+  _maxHealth: 3
   _damage: 1
   _bulletSpeed: 4.5
-  _fireRate: 2
+  _fireRate: 1.2
   _layerMask:
     serializedVersion: 2
     m_Bits: 128

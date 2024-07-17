@@ -271,13 +271,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2678071247795883845}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.83, y: 1.3100001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4011661980375004951}
-  m_Father: {fileID: 1392050788947798688}
+  m_Children: []
+  m_Father: {fileID: 4011661980375004951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!1 &5220137410758348227
 GameObject:
@@ -346,7 +345,7 @@ Transform:
   - {fileID: 3615842111963279010}
   - {fileID: 2545499177717215997}
   - {fileID: 9202144020687283325}
-  - {fileID: 4484494614302478834}
+  - {fileID: 4011661980375004951}
   - {fileID: 4640381658927203744}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -365,7 +364,7 @@ MonoBehaviour:
   _maxHealth: 50
   _damage: 1
   _bulletSpeed: 7.5
-  _fireRate: 0.1
+  _fireRate: 0.3
   _particle: {fileID: 7903619681787693837, guid: 65a5ec76afd34da4b8058379c8108259, type: 3}
   _layerMask:
     serializedVersion: 2
@@ -671,12 +670,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8369443690171588823}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
+  m_LocalPosition: {x: -0.53, y: 0.100000024, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4484494614302478834}
+  m_Children:
+  - {fileID: 4484494614302478834}
+  m_Father: {fileID: 1392050788947798688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!1001 &5609972144164515494
 PrefabInstance:

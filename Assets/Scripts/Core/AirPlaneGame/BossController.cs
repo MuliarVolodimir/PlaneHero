@@ -70,8 +70,6 @@ public class BossController : MonoBehaviour, IDamagable
     {
         if (!_damagable) return;
 
-        _animator.ResetTrigger("Damage");
-        _animator.SetTrigger("Damage");
         _health -= amount;
         if (_health <= 0)
         {

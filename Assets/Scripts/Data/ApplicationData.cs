@@ -35,7 +35,7 @@ public class ApplicationData
     private int _defeatedEnemies = 0;
     private int _defeatedBosses = 0;
     private int _gameLevel = 1;
-    private int _bossLvlRate = 5;
+    private int _bossLvlRate = 1;
 
     private List<string> _comletedMissions = new List<string>();
 
